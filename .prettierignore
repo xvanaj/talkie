@@ -1,0 +1,11 @@
+.next
+.npm-cache
+.gradle
+node_modules
+package-lock.json
+next-env.d.ts
+docs
+gradle
+.idea
+playwright-report
+test-results
