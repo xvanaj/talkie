@@ -1,5 +1,7 @@
 # Talkie
 
+[![CI](https://github.com/xvanaj/talkie/actions/workflows/ci.yml/badge.svg)](https://github.com/xvanaj/talkie/actions/workflows/ci.yml)
+
 Responzivní české MVP pro procvičování angličtiny metodou shadowing. Obsahuje 10 témat a 50 dialogů, přehrávání po úsecích, nahrávání, volitelný přepis, srovnání textu a lokální pokrok. Původní Java/Gradle soubory jsou zachovány; web je samostatná Next.js aplikace v kořeni projektu.
 
 ## Spuštění
@@ -21,6 +23,12 @@ npm run test:e2e
 npm run build
 npm start
 ```
+
+## GitHub Actions
+
+Workflow `.github/workflows/ci.yml` běží při pushi do `master`, při pull requestu do `master` a ručně přes **Actions → CI → Run workflow**. Na Ubuntu s Node.js 22 provede `npm ci`, lint, TypeScript kontrolu, jednotkové testy a produkční build. Playwright potom otestuje produkční server v Chromiu; prohlížeč i systémové závislosti se instalují automaticky. Lokálně se dál používá Edge a vývojový server.
+
+HTML report, screenshoty a trasování neúspěšných testů jsou dostupné jako artefakt `playwright-report` po dobu 7 dnů. Workflow nepotřebuje vlastní secrets, má pouze právo číst repozitář a novější běh ruší předchozí běh stejné větve. Jde o průběžnou kontrolu aplikace; workflow ji nenasazuje na veřejný hosting.
 
 ## Použití a soukromí
 
