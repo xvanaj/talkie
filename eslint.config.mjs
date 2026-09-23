@@ -6,6 +6,7 @@ export default defineConfig([
   ...ts,
   globalIgnores([
     ".next/**",
+    "out/**",
     ".npm-cache/**",
     ".gradle/**",
     "next-env.d.ts",

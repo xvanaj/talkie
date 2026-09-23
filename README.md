@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/xvanaj/talkie/actions/workflows/ci.yml/badge.svg)](https://github.com/xvanaj/talkie/actions/workflows/ci.yml)
 
+**Aplikace online:** https://xvanaj.github.io/talkie/
+
 Responzivní české MVP pro procvičování angličtiny metodou shadowing. Obsahuje 10 témat a 50 dialogů, přehrávání po úsecích, nahrávání, volitelný přepis, srovnání textu a lokální pokrok. Původní Java/Gradle soubory jsou zachovány; web je samostatná Next.js aplikace v kořeni projektu.
 
 ## Spuštění
@@ -28,7 +30,11 @@ npm start
 
 Workflow `.github/workflows/ci.yml` běží při pushi do `master`, při pull requestu do `master` a ručně přes **Actions → CI → Run workflow**. Na Ubuntu s Node.js 22 provede `npm ci`, lint, TypeScript kontrolu, jednotkové testy a produkční build. Playwright potom otestuje produkční server v Chromiu; prohlížeč i systémové závislosti se instalují automaticky. Lokálně se dál používá Edge a vývojový server.
 
-HTML report, screenshoty a trasování neúspěšných testů jsou dostupné jako artefakt `playwright-report` po dobu 7 dnů. Workflow nepotřebuje vlastní secrets, má pouze právo číst repozitář a novější běh ruší předchozí běh stejné větve. Jde o průběžnou kontrolu aplikace; workflow ji nenasazuje na veřejný hosting.
+HTML report, screenshoty a trasování neúspěšných testů jsou dostupné jako artefakt `playwright-report` po dobu 7 dnů. Kontrolní job má pouze právo číst repozitář. Novější běh ruší předchozí běh stejné větve.
+
+Po úspěšných kontrolách vznikne také statický export pro GitHub Pages (`PAGES_EXPORT=true`). Při pushi nebo ručním spuštění na `master` se export automaticky nasadí na https://xvanaj.github.io/talkie/. Pull requesty export ověří, ale nenasazují. Samostatný deploy job používá prostředí `github-pages`, oprávnění `pages: write` a `id-token: write`; vlastní secrets nejsou potřeba.
+
+`next.config.ts` zapíná pouze pro Pages export `output: "export"` a prefix `/talkie`. Lokální `npm run dev`, běžný build a `npm start` dál fungují bez prefixu. HTTPS na Pages umožňuje používat mikrofon. Hosting je statický: budoucí serverové pronunciation API bude vyžadovat samostatný backend nebo přechod na hosting s podporou Next.js serveru. Pokrok z localhostu se na novou doménu automaticky nepřenáší.
 
 ## Použití a soukromí
 
